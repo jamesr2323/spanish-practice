@@ -4,6 +4,9 @@
       .control-box-container {
         font-size: 2em;
         text-align: center;
+        margin: 20px;
+        padding: 10px;
+        border: 2px black solid;
       }
       .control-box-container input {
         width: 400px;
@@ -37,6 +40,12 @@
       var startTime = $(this).data('config').init + 1; //Adjust for delay
       questions.push({text: text, startTime: startTime});
     });
+
+    // Hide distractions
+    $('body > :not(#wrapper)').hide();
+    $('#wrapper > :not(.video)').hide();
+    $('.textRel').hide()
+    $('.socialBox').hide()
 
     // Button click handlers
     $('#check-answer-button').click(function(){
@@ -75,6 +84,7 @@
 
       stopAt(questions[id+1].startTime+0.5);
 
+      $controlBox.hide();
       $('.answer-response-correct').hide();
       $('.answer-response-incorrect').hide();
     }
@@ -82,6 +92,7 @@
     function stopAt(time){
       if (videoElement.currentTime >= time){
         videoElement.pause();
+        $controlBox.show();
       } else {
         setTimeout(function(){
           stopAt(time)

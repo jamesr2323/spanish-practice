@@ -4,6 +4,8 @@ I created this application to help me (and hopefully others) some practice liste
 
 It uses freely available TV programs from rtve.es along with their subtitles to create 'listening challenge' exercises.
 
+![Screenshot showing the app](screenshot.png?raw=true "What it looks like")
+
 # Deployment
 
 Go to a RTVE.es video page with a video that has subtitles. Most do. E.g. http://www.rtve.es/alacarta/videos/acacias-38/acacias-38-capitulo-343/3705758/?
