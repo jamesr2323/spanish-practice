@@ -8,8 +8,11 @@
         padding: 10px;
         border: 2px black solid;
       }
-      .control-box-container input {
+      .control-box-container input#answer-input {
         width: 400px;
+      }
+      .control-box-container input#time-offset-input {
+        width: 30px;
       }
       .answer-response {
         display: none;
@@ -20,6 +23,7 @@
     </style>
     <div class="control-box-container">
       <input type="text" id="answer-input" placeholder="type your translation here" />
+      <input type="number" id="time-offset-input" placeholder="secs" value="1" />
       <button id="check-answer-button">Check!</button>
       <button class="try-again-button">Try again</button>
       <div class="answer-response answer-response-correct">Correct!</div>
@@ -37,7 +41,7 @@
 
     $.each($transcriptBox.find('p'),function(){
       var text = $(this).text().trim();
-      var startTime = $(this).data('config').init + 1; //Adjust for delay
+      var startTime = $(this).data('config').init; //Adjust for delay
       questions.push({text: text, startTime: startTime});
     });
 
@@ -74,15 +78,19 @@
       }    
     }
 
+    function getOffset(){
+      return Number($('#time-offset-input').val());
+    }
+
     function startQuestion(id){
       currentQuestion = id;
       $question = $transcriptBox.find('p:eq('+id+')');
       console.log(questions[id].text);
 
-      videoElement.currentTime = questions[id].startTime - 0.5;
+      videoElement.currentTime = questions[id].startTime + getOffset() - 0.5;
       videoElement.play();
 
-      stopAt(questions[id+1].startTime+0.5);
+      stopAt(questions[id+1].startTime + getOffset() + 0.5);
 
       $controlBox.hide();
       $('.answer-response-correct').hide();
